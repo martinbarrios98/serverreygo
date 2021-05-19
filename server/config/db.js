@@ -3,7 +3,6 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('id14955862_reygocafe', 'id14955862_reygoroot', '4V\TK2/cxF=0L3Qd', {
     host: 'localhost',
     dialect: 'mysql',
-    port: 3306,
     operatorsAliases: false,
     define:{
         timestamps: false
