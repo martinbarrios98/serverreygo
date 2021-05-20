@@ -1,8 +1,9 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('id14955862_reygocafe', 'id14955862_reygoroot', '4V\TK2/cxF=0L3Qd', {
-    host: 'localhost',
+const sequelize = new Sequelize('reygocafe', 'admin', '8qEs9mJ6', {
+    host: 'mysql-31663-0.cloudclusters.net',
     dialect: 'mysql',
+    port: 31663,
     operatorsAliases: false,
     define:{
         timestamps: false
