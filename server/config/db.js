@@ -1,10 +1,10 @@
+require('dotenv').config({path: 'variables.env'});
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('reygocafe', 'admin', '8qEs9mJ6', {
-    host: 'mysql-31663-0.cloudclusters.net',
+const sequelize = new Sequelize(process.env.BD_NAME, process.env.BD_USER, process.env.BD_PASS, {
+    host: process.env.BD_HOST,
     dialect: 'mysql',
-    port: 31663,
-    operatorsAliases: false,
+    port: process.env.BD_PORT,
     define:{
         timestamps: false
     },
