@@ -1,9 +1,9 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 const { secret1 } = require('../config/secret');
-const Categorias = require('../modelos/Categorias');
-const Productos = require('../modelos/Productos');
-const Usuarios  = require('../modelos/Usuarios');
+const Categorias = require('../models/Categorias');
+const Productos = require('../models/Productos');
+const Usuarios  = require('../models/Usuarios');
 
 exports.inicio = (req, res, next) =>{
 

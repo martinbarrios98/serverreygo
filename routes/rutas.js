@@ -4,7 +4,7 @@ const rutas = express.Router();
 
 const { body } = require('express-validator/check');
 
-const controladores = require('../controladores/controladores.js');
+const controladores = require('../controllers/controladores.js');
 
 module.exports = () => {
 
