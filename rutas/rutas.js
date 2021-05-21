@@ -9,7 +9,7 @@ const controladores = require('../controladores/controladores.js');
 module.exports = () => {
 
     //Principal//contactos
-    rutas.get('/', controladores.inicio);
+    rutas.get('', controladores.inicio);
     //Categorias
     rutas.get('/categorias', controladores.verCategorias);
     rutas.get('/categorias/:id', controladores.verCategoria);
