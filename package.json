@@ -2,10 +2,10 @@
   "name": "paudenreygocoffe",
   "version": "1.0.0",
   "description": "Aplicacion Web Venta Linea Insumos Cafe",
-  "main": "server/App.js",
+  "main": "App.js",
   "scripts": {
-    "desarrollo": "nodemon server/App.js",
-    "start": "node server/App.js"
+    "desarrollo": "nodemon App.js",
+    "start": "node App.js"
   },
   "author": "Martin Rafael Martinez Barrios",
   "license": "ISC",
