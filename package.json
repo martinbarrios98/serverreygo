@@ -5,11 +5,13 @@
   "main": "App.js",
   "scripts": {
     "desarrollo": "nodemon App.js",
-    "start": "node App.js"
+    "produccion": "node App.js",
+    "start": "nodemon App.js"
   },
   "author": "Martin Rafael Martinez Barrios",
   "license": "ISC",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -21,9 +23,11 @@
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.1",
     "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "paypal-rest-sdk": "^1.8.1",
     "sequelize": "^6.6.2",
     "shortid": "^2.2.16"
   },
