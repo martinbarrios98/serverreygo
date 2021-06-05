@@ -555,6 +555,28 @@ exports.eliminarUsuario = async (req, res) =>{
 
 }
 
+exports.verUltimosUsuarios = async (req, res) => {
+    const usuarios = await Usuarios.findAll({
+        order:[
+            ['id','DESC']
+        ],
+        limit: 3
+    });
+
+    if(usuarios.length){
+        res.send({
+            respuesta: 'correcto',
+            informacion: 'Se listo correctamente los usuarios',
+            usuarios
+        });
+    }else{
+        res.send({
+            respuesta: 'correcto',
+            informacion: 'No hay usuarios creados'
+        })
+    }
+}
+ 
 exports.verUltimosProdutos = async (req, res) =>{
     const data = await Productos.findAll({
         order:[
@@ -844,6 +866,49 @@ exports.editarPedido = async (req, res) => {
     }
 
 
+}
+
+exports.verUltimosPedidos = async (req, res) => {
+
+    const pedidos  = await Pedidos.findAll({
+        order:[
+            ['id','DESC']
+        ],
+        limit: 3
+    });
+
+    pedidos.forEach( async pedido => {
+
+        const identificadorUsuario = await JSON.parse(pedido.usuario);
+        const usuario = await Usuarios.findOne({where:{
+            id: identificadorUsuario.id
+        }});
+        identificadorUsuario.informacionUsuario = usuario;
+        pedido.usuario = await identificadorUsuario;
+
+        const productosParse = await JSON.parse(pedido.productos);
+        productosParse.forEach(async productoParse => {
+            const producto = await Productos.findOne({where:{ id: productoParse.id}});
+            productoParse.informacionProducto = producto;
+        });
+        pedido.productos = await productosParse;
+
+    });
+
+    setTimeout(() => {
+        if(pedidos.length){
+            res.send({
+                respuesta: 'correcto',
+                informacion: 'Se listo correctamente los pedidos',
+                pedidos
+            });
+        }else{
+            res.send({
+                respuesta: 'correcto',
+                informacion: 'No hay pedidos registrados'
+            })
+        }
+    }, 1000);
 }
 
 //Administradores
