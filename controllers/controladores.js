@@ -836,7 +836,7 @@ exports.verPedidos = async (req, res) => {
 
 }
 
-exports.editarPedido = async (req, res) => {
+exports.editarPedidos = async (req, res) => {
 
     const { id } = req.params;
     const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal, numero_guia, paqueteria } = req.body;
