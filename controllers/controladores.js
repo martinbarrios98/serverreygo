@@ -839,16 +839,16 @@ exports.verPedidos = async (req, res) => {
 exports.editarPedidos = async (req, res) => {
 
     const { id } = req.params;
-    const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal, numero_guia, paqueteria } = req.body;
+    const { estado_pedido, numero_guia, paqueteria } = req.body;
 
-    if(!usuario || usuario === undefined || usuario === null  || !estado_pedido || estado_pedido === undefined || estado_pedido === null, !fecha || fecha === undefined || fecha  === null || !total || total === undefined || total === null || !direccion || direccion === undefined || direccion === null || !referencias || referencias === undefined || referencias === null || !productos || productos === undefined || productos === null || !postal || postal === undefined || postal === null || !ciudad || ciudad === undefined || ciudad === null || !estado ||  estado === undefined || estado === null || !modalidad || modalidad === undefined || modalidad === null || !envio || envio === undefined || envio === null || !id_transacion || id_transacion === undefined || id_transacion === null ||!comision_paypal || comision_paypal === undefined || comision_paypal === null || !id || id === undefined || id === null || !numero_guia || numero_guia === undefined || numero_guia === null || !paqueteria || paqueteria === undefined || paqueteria === null){
+    if(!numero_guia || numero_guia === undefined || numero_guia === null || !paqueteria || paqueteria === undefined || paqueteria === null || !estado_pedido || estado_pedido === null || estado_pedido === undefined){
         res.status(400).send({
             respuesta: 'Error',
             informacion: 'No se detecto los campos o parametros necesarios'
         });
     }else{
 
-        const pedido = await Pedidos.update({usuario: usuario, estado_pedido: estado_pedido, fecha: fecha, total: total, direccion: direccion, referencias: referencias, productos: productos, postal: postal, ciudad: ciudad, estado: estado, modalidad: modalidad, envio: envio, id_transacion: id_transacion, comision_paypal: comision_paypal, numero_guia: numero_guia, paqueteria: paqueteria}, {where: {id: id}});
+        const pedido = await Pedidos.update({estado_pedido: estado_pedido, numero_guia: numero_guia, paqueteria: paqueteria}, {where: {id: id}});
 
         if(pedido.length > 0){
             res.send({
