@@ -258,7 +258,7 @@ exports.verProducto = async (req, res) => {
 }
 
 exports.crearProducto = async (req, res) =>{
-
+    
     const { nombre, descripcion, precio, url, categoria } = req.body;
 
     if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null){
@@ -839,16 +839,16 @@ exports.verPedidos = async (req, res) => {
 exports.editarPedido = async (req, res) => {
 
     const { id } = req.params;
-    const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal } = req.body;
+    const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal, numero_guia, paqueteria } = req.body;
 
-    if(!usuario || usuario === undefined || usuario === null  || !estado_pedido || estado_pedido === undefined || estado_pedido === null, !fecha || fecha === undefined || fecha  === null || !total || total === undefined || total === null || !direccion || direccion === undefined || direccion === null || !referencias || referencias === undefined || referencias === null || !productos || productos === undefined || productos === null || !postal || postal === undefined || postal === null || !ciudad || ciudad === undefined || ciudad === null || !estado ||  estado === undefined || estado === null || !modalidad || modalidad === undefined || modalidad === null || !envio || envio === undefined || envio === null || !id_transacion || id_transacion === undefined || id_transacion === null ||!comision_paypal || comision_paypal === undefined || comision_paypal === null || !id || id === undefined || id === null){
+    if(!usuario || usuario === undefined || usuario === null  || !estado_pedido || estado_pedido === undefined || estado_pedido === null, !fecha || fecha === undefined || fecha  === null || !total || total === undefined || total === null || !direccion || direccion === undefined || direccion === null || !referencias || referencias === undefined || referencias === null || !productos || productos === undefined || productos === null || !postal || postal === undefined || postal === null || !ciudad || ciudad === undefined || ciudad === null || !estado ||  estado === undefined || estado === null || !modalidad || modalidad === undefined || modalidad === null || !envio || envio === undefined || envio === null || !id_transacion || id_transacion === undefined || id_transacion === null ||!comision_paypal || comision_paypal === undefined || comision_paypal === null || !id || id === undefined || id === null || !numero_guia || numero_guia === undefined || numero_guia === null || !paqueteria || paqueteria === undefined || paqueteria === null){
         res.status(400).send({
             respuesta: 'Error',
             informacion: 'No se detecto los campos o parametros necesarios'
         });
     }else{
 
-        const pedido = await Pedidos.update({usuario: usuario, estado_pedido: estado_pedido, fecha: fecha, total: total, direccion: direccion, referencias: referencias, productos: productos, postal: postal, ciudad: ciudad, estado: estado, modalidad: modalidad, envio: envio, id_transacion: id_transacion, comision_paypal: comision_paypal}, {where: {id: id}});
+        const pedido = await Pedidos.update({usuario: usuario, estado_pedido: estado_pedido, fecha: fecha, total: total, direccion: direccion, referencias: referencias, productos: productos, postal: postal, ciudad: ciudad, estado: estado, modalidad: modalidad, envio: envio, id_transacion: id_transacion, comision_paypal: comision_paypal, numero_guia: numero_guia, paqueteria: paqueteria}, {where: {id: id}});
 
         if(pedido.length > 0){
             res.send({

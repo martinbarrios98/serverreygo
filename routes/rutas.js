@@ -33,7 +33,7 @@ module.exports = () => {
     rutas.post('/pedido/validacion', body(['paymentId', 'payerId', 'total']), controladores.validarPago);
     rutas.post('/pedido/success', body(['usuario', 'estado_pedido', 'fecha', 'total', 'direccion', 'referencias', 'productos', 'postal', 'ciudad', 'estado', 'modalidad', 'envio', 'id_transacion', 'comision_paypal']), controladores.successPedido);
     rutas.get('/pedidos', controladores.verPedidos);
-    rutas.put('/pedidos/editar/:id', body(['usuario', 'estado_pedido', 'fecha', 'total', 'direccion', 'referencias', 'productos', 'postal', 'ciudad', 'estado', 'modalidad', 'envio', 'id_transacion', 'comision_paypal']) ,controladores.editarPedido);
+    rutas.put('/pedidos/editar/:id', body(['usuario', 'estado_pedido', 'fecha', 'total', 'direccion', 'referencias', 'productos', 'postal', 'ciudad', 'estado', 'modalidad', 'envio', 'id_transacion', 'comision_paypal', 'numero_guia', 'paqueteria']) ,controladores.editarPedido);
     rutas.get('/pedidos/ultimos', controladores.verUltimosPedidos);
     //Administradores
     rutas.get('/administradores', controladores.verAdministradores);
