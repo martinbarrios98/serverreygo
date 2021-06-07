@@ -1100,3 +1100,35 @@ exports.sesionAdministrador = async (req, res) => {
             }
     }
 }
+
+exports.Autenticacion = async (req, res, next) => {
+    const { headers } = req;
+
+    if(!headers.token || headers.token === ''){
+
+        res.status(401).send({
+            respuesta: 'error',
+            informacion: 'No se detecto las credenciales necesarias'
+        });
+
+    }else{
+
+        const informacion = {
+            tokenDecode: jwt.decode(headers.token, secret1),
+            momentactual: moment().get('hour')
+        };
+
+        if(informacion.tokenDecode.iat < informacion.momentactual){
+    
+            res.status(401).send({
+                respuesta: 'error',
+                informacion: 'Credenciales ya no son validas',
+                extra: 'necesita volver iniciar sesion'
+            });
+    
+        }else{
+            next();
+        }
+
+    }
+}
