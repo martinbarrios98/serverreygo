@@ -651,15 +651,16 @@ exports.crearPedido = async (req, res) => {
             'client_id': clientId,
             'client_secret': clientSecret
         });
-
+        //http://127.0.0.1:5500/
+        //http://127.0.0.1:5500/
         const create_payment_json = {
             "intent": "sale",
             "payer": {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://127.0.0.1:5500/front/v2/success.html",
-                "cancel_url": "http://127.0.0.1:5500/front/v2/pago.html"
+                "return_url": "https://nifty-hopper-f2907f.netlify.app/front/v2/success.html",
+                "cancel_url": "https://nifty-hopper-f2907f.netlify.app/front/v2/pago.html"
             },
             "transactions": [{
                 "amount": {
