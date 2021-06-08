@@ -767,7 +767,7 @@ exports.successPedido = async (req, res) => {
         `;
 
         let mailOptions = {
-            from: '"ReygoCoffe Contact" <reygocoffe@hotmail.com>', // sender address
+            from: '"ReygoCoffe Contacto" <ventasreygo@gmail.com>', // sender address
             to: correoUsuario, // list of receivers
             subject: 'ReygoCoffe Resumen de Compra', // Subject line
             text: 'Hello world?', // plain text body
