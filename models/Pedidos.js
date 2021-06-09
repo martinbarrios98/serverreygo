@@ -22,7 +22,8 @@ const Pedidos = db.define('pedidos', {
     paqueteria: Sequelize.STRING,
     envio: Sequelize.STRING,
     id_transacion: Sequelize.STRING,
-    comision_paypal: Sequelize.STRING
+    comision_paypal: Sequelize.STRING,
+    peso: Sequelize.STRING
 },{
     hooks:{
         beforeCreate(pedido){

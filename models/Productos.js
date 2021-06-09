@@ -11,8 +11,8 @@ const Productos = db.define('productos', {
     descripcion: Sequelize.STRING,
     precio: Sequelize.STRING,
     url: Sequelize.STRING,
+    peso: Sequelize.STRING,
     categoria: Sequelize.INTEGER 
-
 });
 
 module.exports = Productos;

@@ -103,6 +103,41 @@ exports.editarCategoria = async (req, res) => {
 
 }
 
+exports.eliminarCategoria = async (req, res) =>{
+
+    const  { id } = req.params;
+
+    if(!id || id === ''){
+
+        res.status(400).send({
+            respuesta: 'error',
+            informacion: 'No se detecto los parametros necesarios'
+        });
+
+    }else{
+
+        const producto = await Productos.destroy({where:{id: id}});
+
+        if(producto === 1){
+
+            res.send({
+                respuesta: 'correcto',
+                informacion: 'Se elimino correctamente el usuario'
+            });
+
+        }else{
+
+            res.status(400).send({
+                respuesta: 'correcto',
+                informacion: 'Ocurrio un error en el proceso'
+            });
+
+        }
+
+    }
+
+}
+
 //productos
 exports.verProductos = async (req, res, next) =>{
 
@@ -120,6 +155,7 @@ exports.verProductos = async (req, res, next) =>{
                 descripcion: dat.descripcion,
                 precio: dat.precio,
                 url: dat.url,
+                peso: dat.peso,
                 categoria: dat.categoria
             }
 
@@ -176,6 +212,7 @@ exports.verProductosCat = async (req, res, next) =>{
                     descripcion: dat.descripcion,
                     precio: dat.precio,
                     url: dat.url,
+                    peso: dat.peso,
                     categoria: dat.categoria
                 }
 
@@ -259,16 +296,16 @@ exports.verProducto = async (req, res) => {
 
 exports.crearProducto = async (req, res) =>{
     
-    const { nombre, descripcion, precio, url, categoria } = req.body;
+    const { nombre, descripcion, precio, url, categoria, peso } = req.body;
 
-    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null){
+    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null || !peso || peso === undefined || peso === null){
         res.status(400).send({
             respuesta: 'error',
             informacion: 'No se detecto los campos necesarios'
         });
     }else{
 
-        const producto = await Productos.create({nombre: nombre, descripcion: descripcion, precio: precio, url: url, categoria: categoria});
+        const producto = await Productos.create({nombre: nombre, descripcion: descripcion, precio: precio, url: url, peso:peso,categoria: categoria});
 
         if(producto.dataValues){
             res.send({
@@ -291,9 +328,9 @@ exports.crearProducto = async (req, res) =>{
 exports.editarProducto = async (req, res) => {
 
     const { id } = req.params;
-    const { nombre, descripcion, precio, url, categoria } = req.body;
+    const { nombre, descripcion, precio, url, categoria, peso } = req.body;
 
-    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null || !id || id === undefined || id === null){
+    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null || !id || id === undefined || id === null || !peso || peso === undefined || peso === null){
         res.status(400).send({
             respuesta: 'error',
             informacion: 'No se detecto los campos o parametros necesarios'
@@ -301,7 +338,7 @@ exports.editarProducto = async (req, res) => {
     }else{
 
         const producto = await Productos.update(
-            {nombre: nombre, descripcion: descripcion, precio: precio, url: url, categoria: categoria},
+            {nombre: nombre, descripcion: descripcion, precio: precio, url: url, peso:peso, categoria: categoria},
             {where:{id: id}}
         );
 
@@ -364,10 +401,42 @@ exports.crearUsuario = async (req, res) =>{
         const usuario = await Usuarios.create({nombre: nombre, apellido: apellido, correo: correo, direccion: direccion, password: password, telefono: telefono});
 
         if(usuario.dataValues){
+
+            const output = `
+            <p>¡ UN USUARIO SE HA REGISTRADO !</p>
+            <h3>Detalles</h3>
+            <ul>  
+                <li>Nombre: ${nombre} ${apellido}</li>
+                <li>Correo: ${correo}</li>
+                <li>Direccion: ${direccion}</li>
+                <li>Telefono: ${telefono}</li>
+            </ul>
+            <h3>Mensaje</h3>
+            <p>Se ha registrado un usuario correctamente a la plataforma ReygoCoffee</p>
+        `;
+
+            let mailOptions = {
+                from: '"ReygoCoffe Contacto" <ventasreygo@gmail.com>', // sender address
+                to: 'ventasreygo@gmail.com', // list of receivers
+                subject: 'ReygoCoffee Registro de Usuario', // Subject line
+                text: 'Hello world?', // plain text body
+                html: output // html body
+            };
+        
+            // Mnadamos el objeto al email
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId);   
+                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+            });
+
             res.send({
                 respuesta: 'correcto',
                 informacion: 'Se creo correctamente el usuario'
             });
+
         }else{
             res.status(400).send({
                 respuesta: 'error',
@@ -659,8 +728,8 @@ exports.crearPedido = async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "https://nifty-hopper-f2907f.netlify.app/front/v2/success.html",
-                "cancel_url": "https://nifty-hopper-f2907f.netlify.app/front/v2/pago.html"
+                "return_url": "http://127.0.0.1:5500/front/v2/success.html",
+                "cancel_url": "http://127.0.0.1:5500/front/v2/pago.html"
             },
             "transactions": [{
                 "amount": {
@@ -734,9 +803,9 @@ exports.validarPago = async (req, res) => {
 }
 
 exports.successPedido = async (req, res) => {
-    const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal } = req.body;
+    const { usuario, estado_pedido, fecha, total, direccion, referencias, productos, postal, ciudad, estado, modalidad, envio, id_transacion, comision_paypal, peso } = req.body;
 
-    if(!usuario || usuario === undefined || usuario === null  || !estado_pedido || estado_pedido === undefined || estado_pedido === null, !fecha || fecha === undefined || fecha  === null || !total || total === undefined || total === null || !direccion || direccion === undefined || direccion === null || !referencias || referencias === undefined || referencias === null || !productos || productos === undefined || productos === null || !postal || postal === undefined || postal === null || !ciudad || ciudad === undefined || ciudad === null || !estado ||  estado === undefined || estado === null || !modalidad || modalidad === undefined || modalidad === null || !envio || envio === undefined || envio === null || !id_transacion || id_transacion === undefined || id_transacion === null ||!comision_paypal || comision_paypal === undefined || comision_paypal === null){
+    if(!usuario || usuario === undefined || usuario === null  || !estado_pedido || estado_pedido === undefined || estado_pedido === null, !fecha || fecha === undefined || fecha  === null || !total || total === undefined || total === null || !direccion || direccion === undefined || direccion === null || !referencias || referencias === undefined || referencias === null || !productos || productos === undefined || productos === null || !postal || postal === undefined || postal === null || !ciudad || ciudad === undefined || ciudad === null || !estado ||  estado === undefined || estado === null || !modalidad || modalidad === undefined || modalidad === null || !envio || envio === undefined || envio === null || !id_transacion || id_transacion === undefined || id_transacion === null ||!comision_paypal || comision_paypal === undefined || comision_paypal === null || !peso || peso === undefined || peso === null){
 
         res.status(400).send({
             respuesta: 'Error',
@@ -747,7 +816,7 @@ exports.successPedido = async (req, res) => {
 
         const usuarioParse = JSON.parse(usuario);
 
-        const pedido = await Pedidos.create({usuario: usuario, estado_pedido: estado_pedido, fecha: fecha, total: total, direccion: direccion, referencias: referencias, productos: productos, postal: postal, ciudad: ciudad, estado: estado, modalidad: modalidad, envio: envio, id_transacion: id_transacion, comision_paypal: comision_paypal});
+        const pedido = await Pedidos.create({usuario: usuario, estado_pedido: estado_pedido, fecha: fecha, total: total, direccion: direccion, referencias: referencias, productos: productos, postal: postal, ciudad: ciudad, estado: estado, modalidad: modalidad, envio: envio, id_transacion: id_transacion, comision_paypal: comision_paypal, peso: peso});
         const infoUsuario = await Usuarios.findOne({where:{id: usuarioParse.id}});
         const correoUsuario = await infoUsuario.correo;
         const nombreUsuario = await infoUsuario.nombre;
@@ -761,6 +830,7 @@ exports.successPedido = async (req, res) => {
             <ul>  
                 <li>Nombre: ${nombreUsuario}</li>
                 <li>Telefono: ${telefonoUsuario}</li>
+                <li>Ingrese en nuestro sitio ReygoCoffee para tener mas informacion de su pedido</li>
             </ul>
             <h3>Mensaje</h3>
             <p>¡Tu compra se registro correctamente con un total de $${(totalInt+envioInt)}, un administrador de ReygoCoffe se pondra en contacto con usted al numero de su celular lo mas pronto posible, agradecemos su compra y su confianza con nosotros!</p>

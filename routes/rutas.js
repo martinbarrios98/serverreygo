@@ -14,6 +14,7 @@ module.exports = () => {
     rutas.get('/categorias', controladores.verCategorias);
     rutas.get('/categorias/:id', controladores.verCategoria);
     rutas.put('/categorias/editar/:id', body(['nombre', 'url']), controladores.Autenticacion ,controladores.editarCategoria);
+    rutas.delete('/categorias/:id', controladores.Autenticacion, controladores.eliminarCategoria);
     //Productos
     rutas.get('/productos/:id', controladores.verProductosCat);
     rutas.get('/productos', controladores.verProductos);
