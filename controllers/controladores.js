@@ -667,6 +667,7 @@ exports.verUltimosProdutos = async (req, res) =>{
                 descripcion: dat.descripcion,
                 precio: dat.precio,
                 url: dat.url,
+                peso: dat.peso,
                 categoria: dat.categoria
             }
 
