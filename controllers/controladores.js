@@ -145,13 +145,13 @@ exports.eliminarCategoria = async (req, res) =>{
 
     }else{
 
-        const producto = await Productos.destroy({where:{id: id}});
+        const categoria = await Categorias.destroy({where:{id: id}});
 
-        if(producto === 1){
+        if(categoria === 1){
 
             res.send({
                 respuesta: 'correcto',
-                informacion: 'Se elimino correctamente el usuario'
+                informacion: 'Se elimino correctamente la categoria'
             });
 
         }else{
