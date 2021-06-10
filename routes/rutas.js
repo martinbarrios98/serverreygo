@@ -13,6 +13,7 @@ module.exports = () => {
     //Categorias
     rutas.get('/categorias', controladores.verCategorias);
     rutas.get('/categorias/:id', controladores.verCategoria);
+    rutas.post('/categorias/nuevo', body(['nombre', 'url']), controladores.Autenticacion, controladores.agregarCategoria);
     rutas.put('/categorias/editar/:id', body(['nombre', 'url']), controladores.Autenticacion ,controladores.editarCategoria);
     rutas.delete('/categorias/:id', controladores.Autenticacion, controladores.eliminarCategoria);
     //Productos

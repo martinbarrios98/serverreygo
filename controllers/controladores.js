@@ -71,6 +71,35 @@ exports.verCategoria = async (req, res) =>{
 
 }
 
+exports.agregarCategoria = async (req, res) =>{
+
+    const { nombre, url } = req.body;
+
+    if(!nombre || nombre === '' || !url || url === ''){
+        res.status(400).send({
+            respuesta: 'error',
+            informacion: 'No se detecaron los campos necesarios'
+        });
+    }else{
+
+        const categoria = await Categorias.create({nombre: nombre, url: url});
+
+        if(categoria.dataValues){
+            res.send({
+                respuesta: 'correcto',
+                informacion: 'Se creo correctamente la categoria'
+            });
+        }else{
+            res.status(400).send({
+                respuesta: 'error',
+                informacion: 'Ocurrio un error durante la operacion'  
+            });
+        }
+
+    }
+
+}
+
 exports.editarCategoria = async (req, res) => {
 
     const { id } = req.params;
