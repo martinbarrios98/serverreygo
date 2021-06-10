@@ -15,7 +15,7 @@ module.exports = () => {
     rutas.get('/categorias/:id', controladores.verCategoria);
     rutas.post('/categorias/nuevo', body(['nombre', 'url']), controladores.Autenticacion, controladores.agregarCategoria);
     rutas.put('/categorias/editar/:id', body(['nombre', 'url']), controladores.Autenticacion ,controladores.editarCategoria);
-    rutas.delete('/categorias/elimnar/:id', controladores.Autenticacion, controladores.eliminarCategoria);
+    rutas.delete('/categorias/eliminar/:id', controladores.Autenticacion, controladores.eliminarCategoria);
     //Productos
     rutas.get('/productos/:id', controladores.verProductosCat);
     rutas.get('/productos', controladores.verProductos);
