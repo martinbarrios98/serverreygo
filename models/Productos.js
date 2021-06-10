@@ -12,7 +12,14 @@ const Productos = db.define('productos', {
     precio: Sequelize.STRING,
     url: Sequelize.STRING,
     peso: Sequelize.STRING,
-    categoria: Sequelize.INTEGER 
+    categoria: Sequelize.INTEGER,
+    disponibilidad: Sequelize.STRING
+},{
+    hooks:{
+        beforeCreate(producto){
+            producto.disponibilidad = 'disponible';
+        }
+    }
 });
 
 module.exports = Productos;

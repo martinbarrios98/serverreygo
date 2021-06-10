@@ -185,7 +185,8 @@ exports.verProductos = async (req, res, next) =>{
                 precio: dat.precio,
                 url: dat.url,
                 peso: dat.peso,
-                categoria: dat.categoria
+                categoria: dat.categoria,
+                disponibilidad: dat.disponibilidad
             }
 
             categorias.forEach(async categoria =>{
@@ -242,7 +243,8 @@ exports.verProductosCat = async (req, res, next) =>{
                     precio: dat.precio,
                     url: dat.url,
                     peso: dat.peso,
-                    categoria: dat.categoria
+                    categoria: dat.categoria,
+                    disponibilidad: dat.disponibilidad
                 }
 
                 categorias.forEach(async categoria =>{
@@ -294,7 +296,8 @@ exports.verProducto = async (req, res) => {
                 descripcion: data.descripcion,
                 precio: data.precio,
                 url: data.url,
-                categoria: data.categoria
+                categoria: data.categoria,
+                disponibilidad: data.disponibilidad
             }
 
             categorias.forEach(async categoria =>{
@@ -357,9 +360,9 @@ exports.crearProducto = async (req, res) =>{
 exports.editarProducto = async (req, res) => {
 
     const { id } = req.params;
-    const { nombre, descripcion, precio, url, categoria, peso } = req.body;
+    const { nombre, descripcion, precio, url, categoria, peso, disponibilidad } = req.body;
 
-    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null || !id || id === undefined || id === null || !peso || peso === undefined || peso === null){
+    if(!nombre || nombre === undefined || nombre === null || !descripcion || descripcion === undefined || descripcion === null || !precio || precio === undefined || precio === null || !url || url === undefined || url === null || !categoria || categoria === undefined || categoria === null || !id || id === undefined || id === null || !peso || peso === undefined || peso === null || !disponibilidad || disponibilidad === '' || disponibilidad === null){
         res.status(400).send({
             respuesta: 'error',
             informacion: 'No se detecto los campos o parametros necesarios'
@@ -367,7 +370,7 @@ exports.editarProducto = async (req, res) => {
     }else{
 
         const producto = await Productos.update(
-            {nombre: nombre, descripcion: descripcion, precio: precio, url: url, peso:peso, categoria: categoria},
+            {nombre: nombre, descripcion: descripcion, precio: precio, url: url, peso:peso, categoria: categoria, disponibilidad: disponibilidad},
             {where:{id: id}}
         );
 
@@ -697,7 +700,8 @@ exports.verUltimosProdutos = async (req, res) =>{
                 precio: dat.precio,
                 url: dat.url,
                 peso: dat.peso,
-                categoria: dat.categoria
+                categoria: dat.categoria,
+                disponibilidad: dat.disponibilidad
             }
 
             categorias.forEach(async categoria =>{
