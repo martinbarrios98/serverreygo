@@ -755,7 +755,7 @@ exports.crearPedido = async (req, res) => {
             'client_id': clientId,
             'client_secret': clientSecret
         });
-        //http://127.0.0.1:5500/
+        //https://www.solucionesreygocoffee.com/
         //http://127.0.0.1:5500/
         const create_payment_json = {
             "intent": "sale",
@@ -763,15 +763,15 @@ exports.crearPedido = async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://127.0.0.1:5500/front/v2/success.html",
-                "cancel_url": "http://127.0.0.1:5500/front/v2/pago.html"
+                "return_url": "https://www.solucionesreygocoffee.com/front/v2/success.html",
+                "cancel_url": "https://www.solucionesreygocoffee.com/front/v2/pago.html"
             },
             "transactions": [{
                 "amount": {
                     "currency": "MXN",
                     "total": (total+envio)
                 },
-                "description": "Los mejores productos Insumos ReygoCoffe"
+                "description": "Los mejores productos Insumos ReygoCoffee"
             }]
         };
         
