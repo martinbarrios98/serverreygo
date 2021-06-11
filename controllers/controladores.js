@@ -297,6 +297,7 @@ exports.verProducto = async (req, res) => {
                 precio: data.precio,
                 url: data.url,
                 categoria: data.categoria,
+                peso: data.peso,
                 disponibilidad: data.disponibilidad
             }
 
