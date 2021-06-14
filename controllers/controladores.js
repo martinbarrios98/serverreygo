@@ -1217,23 +1217,6 @@ exports.Autenticacion = async (req, res, next) => {
         });
 
     }else{
-
-        const informacion = {
-            tokenDecode: jwt.decode(headers.token, secret1),
-            momentactual: moment().get('hour')
-        };
-
-        if(informacion.tokenDecode.iat < informacion.momentactual){
-    
-            res.status(401).send({
-                respuesta: 'error',
-                informacion: 'Credenciales ya no son validas',
-                extra: 'necesita volver iniciar sesion'
-            });
-    
-        }else{
-            next();
-        }
-
+        next();
     }
 }
