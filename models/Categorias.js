@@ -8,8 +8,8 @@ const Categorias = db.define('categorias', {
         autoIncrement: true
     },
     nombre: Sequelize.STRING(60),
-    url: Sequelize.STRING 
-
+    url: Sequelize.STRING,
+    descripcion: Sequelize.STRING 
 });
 
 module.exports = Categorias;
