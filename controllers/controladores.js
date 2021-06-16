@@ -751,9 +751,9 @@ exports.crearPedido = async (req, res) => {
         const clientSecret = process.env.PAYPAL_SECRET;
 
         paypal.configure({
-            'mode': 'sandbox', //sandbox or live
-            'client_id': clientId,
-            'client_secret': clientSecret
+            'mode': 'live', //sandbox or live
+            'client_id': 'AUP65SosbEMH1SRfL8DQlfz-EzCLVqpS-3ijyUmJWHbE_7R2NmncdQ5cgBlOEC4ONsZ4w0OLQLwslC2X',
+            'client_secret': 'EPLXN5wLVi7VoD0BtlAZDOHla95mHXEZ6a0jEb1v41N7qkmoQauy7FGzON94jXAfh1aGfUGJcc-ObT7O'
         });
         //https://www.solucionesreygocoffee.com/
         //http://127.0.0.1:5500/
