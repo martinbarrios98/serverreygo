@@ -343,7 +343,7 @@ exports.crearProducto = async (req, res) =>{
         if(producto.dataValues){
             res.send({
                 respuesta: 'correcto',
-                informacion: 'Se creo correctamente el producto'
+                informacion: 'Se creo correctamente el product'
             });
         }else{
 

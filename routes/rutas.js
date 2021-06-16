@@ -13,8 +13,8 @@ module.exports = () => {
     //Categorias
     rutas.get('/categorias', controladores.verCategorias);
     rutas.get('/categorias/:id', controladores.verCategoria);
-    rutas.post('/categorias/nuevo', body(['nombre', 'url']), controladores.Autenticacion, controladores.agregarCategoria);
-    rutas.put('/categorias/editar/:id', body(['nombre', 'url']), controladores.Autenticacion ,controladores.editarCategoria);
+    rutas.post('/categorias/nuevo', body(['nombre', 'url', 'descripcion']), controladores.Autenticacion, controladores.agregarCategoria);
+    rutas.put('/categorias/editar/:id', body(['nombre', 'url', 'descripcion']), controladores.Autenticacion ,controladores.editarCategoria);
     rutas.delete('/categorias/eliminar/:id', controladores.Autenticacion, controladores.eliminarCategoria);
     //Productos
     rutas.get('/productos/:id', controladores.verProductosCat);
