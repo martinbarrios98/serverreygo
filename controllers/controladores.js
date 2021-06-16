@@ -73,16 +73,16 @@ exports.verCategoria = async (req, res) =>{
 
 exports.agregarCategoria = async (req, res) =>{
 
-    const { nombre, url } = req.body;
+    const { nombre, url, descripcion } = req.body;
 
-    if(!nombre || nombre === '' || !url || url === ''){
+    if(!nombre || nombre === '' || !url || url === '' || descripcion === '' || !descripcion){
         res.status(400).send({
             respuesta: 'error',
             informacion: 'No se detecaron los campos necesarios'
         });
     }else{
 
-        const categoria = await Categorias.create({nombre: nombre, url: url});
+        const categoria = await Categorias.create({nombre: nombre, url: url, descripcion: descripcion});
 
         if(categoria.dataValues){
             res.send({
@@ -103,9 +103,9 @@ exports.agregarCategoria = async (req, res) =>{
 exports.editarCategoria = async (req, res) => {
 
     const { id } = req.params;
-    const { nombre, url } = req.body;
+    const { nombre, url, descripcion } = req.body;
 
-    if(!id || id === null || id === undefined || !nombre || nombre === undefined || nombre === null || !url || url === undefined || url === null){
+    if(!id || id === null || id === undefined || !nombre || nombre === undefined || nombre === null || !url || url === undefined || url === null || !descripcion || descripcion === ''){
 
         res.status(400).send({
             respuesta: 'error',
@@ -114,7 +114,7 @@ exports.editarCategoria = async (req, res) => {
 
     }else{
 
-        const categoria = await Categorias.update({nombre: nombre, url: url}, {where:{id: id}});
+        const categoria = await Categorias.update({nombre: nombre, url: url, descripcion: descripcion}, {where:{id: id}});
 
         if(categoria.length > 0){
             res.send({
