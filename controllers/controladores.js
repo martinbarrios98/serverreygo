@@ -738,7 +738,7 @@ exports.crearPedido = async (req, res) => {
     if(!pedido || pedido === undefined || pedido === null){
         res.status(400).send({
             respuesta: 'error',
-            informacion: 'No se detecto los parametros necesarios'
+            informacion: 'No se detecto los parametros necesario'
         });
 
     }else{
